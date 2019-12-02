@@ -1,0 +1,32 @@
+			//
+			// TestGet
+			// Get an object from a bucket.
+			//
+			async function TestGet() {
+
+				// Endpoint.
+				const Url = "https://bucket-name.s3.us-east-2.amazonaws.com/pets/stella.json";
+
+				// Build out the request body.
+				const FetchData = { 
+					method:'GET',
+					mode:'cors', 
+					cache:'no-cache', 
+					credentials:'omit',
+					headers: { 'Content-Type': 'application/json' },
+					body:null
+				};
+
+				// Fetch from the remote bucket and unpack the response.
+				let FetchReply = await fetch(Url, FetchData);
+				let ApiReply = FetchReply && await FetchReply.json();
+
+				// Trace
+				console.log("Heard back from fetch --> "); console.log(FetchReply);
+				console.log("Unpacked the fetch reply --> "); console.log(ApiReply);
+				
+				// Update the DOM.
+				let Element = document.getElementById("monitor");
+				Element.textContent = JSON.stringify(ApiReply);
+
+			}
